@@ -88,7 +88,7 @@ print month_window
 time_per_death_event = month_window/deathevents
 print "death time"
 print time_per_death_event
-time_per_death_event = .05
+time_per_death_event = .005
 allOff()
 
 ### for each death event
