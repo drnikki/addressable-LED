@@ -11,7 +11,7 @@ clockPin = 21
 
 # Set the first variable to the NUMBER of pixels. 32 = 32 pixels in a row
 # The LED strips are 32 LEDs per meter but you can extend/cut the strip
-strip = LPD8806(160, dataPin, clockPin)
+strip = LPD8806(320, dataPin, clockPin)
 
 strip.begin()
 # Update the strip, to start they are all 'off'
@@ -36,9 +36,6 @@ def lightUp(color, location, duration):
             #strip.setPixelColor(i-1, 0)
     # need to wait the duration of the event
     time.sleep(duration)
-    # then turn the location off
-    strip.setPixelColor(location, 0)
-
     strip.show()
 
 
@@ -100,35 +97,19 @@ allOff()
 ##    duration = time_per_death_event
 ####    lightUp(color, location, duration)
 ##
-for i in range(1,12): #number of month numbers in the document
-    print i
-    themonth = month[str(i)]
-    for event in themonth:
-        print event
-        color = getLEDColor(event)
-        print color
-        location = getLEDLocation(event)
-        duration = time_per_death_event
-        lightUp(color, location, duration)
+
+
+for event in month['2']:
+    print event
+    color = getLEDColor(event)
+    print color
+    location = getLEDLocation(event)
+    duration = time_per_death_event
+    lightUp(color, location, duration)
 
 
 
-
-
-
-
-### for each death event
-##for event in month['February']:
-##    print event
-##    color = getLEDColor(event)
-##    print color
-##    location = getLEDLocation(event)
-##    duration = time_per_death_event
-##    lightUp(color, location, duration)
-
-
-
-allOff()
+#allOff()
 
 
 

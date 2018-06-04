@@ -1,4 +1,4 @@
-import LPD8806
+from LPD8806 import LPD8806
 
 
 

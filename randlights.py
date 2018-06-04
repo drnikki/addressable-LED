@@ -51,7 +51,7 @@ def getLEDColor(event):
 
 
 def getLEDLocation(event):
-    return random.randint(1,100)
+    return random.randint(1,160)
 
 # time in milliseconds.
 COMPOSITION_TIME = 600000
@@ -88,7 +88,7 @@ print month_window
 time_per_death_event = month_window/deathevents
 print "death time"
 print time_per_death_event
-time_per_death_event = .0015
+time_per_death_event = .05
 allOff()
 
 ### for each death event
