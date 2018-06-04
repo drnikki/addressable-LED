@@ -27,41 +27,49 @@ def allOff():
         strip.setPixelColor(i, 0)  # turn all pixels off
     strip.show()
 
+
+
 def lightUp(color, location, duration):
+  #  for i in range(strip.numPixels()):
+    #    strip.setPixelColor(i, 0)  # turn all pixels off
+
+   # for i in range(strip.numPixels()):
     strip.setPixelColor(location, color)
+       # if i == 0:
+       #     strip.setPixelColor(strip.numPixels()-1, 0)
+       # else:
+            #strip.setPixelColor(i-1, 0)
+    # need to wait the duration of the event
+    time.sleep(duration)
+    # then turn the location off
+   # strip.setPixelColor(location, 0)
+
     strip.show()
-   # time.sleep(duration) #how long the light is on
-  #  strip.setPixelColor(location, 0)
-   # strip.show()
 
 def allFill(c, wait):
     for i in range(strip.numPixels()):
         strip.setPixelColor(i, c)
-    strip.show()
-    #time.sleep(wait/8000.0)
+        strip.show()
+    time.sleep(wait/8000.0)
 
 
 def getLEDColor(event):
-    #r = random.randint(0,127)
-    #g = random.randint(0,127)
-    #b = random.randint(0,127)
-    r = 127
-    g = 0
-    b = 127
-    
-    if (event["Race"] == "White"):
-        r = 127
-        g = 127
-        b = 127
-    if (event["Race"] == "Mexican"):
-        g=127
-        r = 0
-        b = 0
-    if (event["Race"] == "Indian" or event["Race"] == "navajo"):
-        b=127
-        r = 0
-        g = 0
-        
+    r = random.randint(1,256)
+    g = random.randint(1,256)
+    b = random.randint(1,256) 
+##    if (event["Age"] < 18):
+##        r = 256
+##        g = 1
+##        b = 1
+##    if (event["Race"] == "Mexican"):
+##        g=256
+##        r = 1
+##        b = 1
+##    if (event["Race"] == "Navajo"):
+##        b=256
+##        r = 1
+##        g = 1
+##        
     print "r" + str(r) + "  g" + str(g) + "  b" + str(b)
     return strip.color(r,g,b)
 
@@ -112,9 +120,6 @@ with open('InfluenzaCountingTheDeadUpdated.csv') as csvfile:
 ##
             
 allOff()
-#allFill(strip.color(255,0,0), 10)
-allOff()
-
 for i in range(9,12): #number of month numbers in the document
     print i
     themonth = month[str(i)]
@@ -151,7 +156,6 @@ for i in range(9,12): #number of month numbers in the document
 
 
 allOff()
-
 
 
 

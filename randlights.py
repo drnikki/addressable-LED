@@ -3,6 +3,11 @@ import random
 import time
 from LPD8806 import LPD8806
 
+
+# time in seconds.
+COMPOSITION_TIME = 600.00
+month_window = COMPOSITION_TIME / 12.00
+
 # -------- --------------------------------------------------------------------------------------------------------
 
 # Choose which 2 pins you will use for output. Can be any valid output pins.
@@ -22,40 +27,47 @@ def allOff():
         strip.setPixelColor(i, 0)  # turn all pixels off
     strip.show()
 
-
-
 def lightUp(color, location, duration):
-  #  for i in range(strip.numPixels()):
-    #    strip.setPixelColor(i, 0)  # turn all pixels off
-
-   # for i in range(strip.numPixels()):
     strip.setPixelColor(location, color)
-       # if i == 0:
-       #     strip.setPixelColor(strip.numPixels()-1, 0)
-       # else:
-            #strip.setPixelColor(i-1, 0)
-    # need to wait the duration of the event
-    time.sleep(duration)
-    # then turn the location off
-    strip.setPixelColor(location, 0)
-
     strip.show()
+    time.sleep(duration) #how long the light is on
+    strip.setPixelColor(location, 0)
+    strip.show()
+
+def allFill(c, wait):
+    for i in range(strip.numPixels()):
+        strip.setPixelColor(i, c)
+    strip.show()
+    #time.sleep(wait/8000.0)
 
 
 def getLEDColor(event):
-    r = random.randint(1,256)
-    g = random.randint(1,256)
-    b = random.randint(1,256) 
-    
+    #r = random.randint(0,127)
+    #g = random.randint(0,127)
+    #b = random.randint(0,127)
+    r = 127
+    g = 0
+    b = 127
+    if (event["Race"] == "White"):
+        r = 127
+        g = 127
+        b = 127
+    if (event["Race"] == "Mexican"):
+        g=127
+        r = 0
+        b = 0
+    if (event["Race"] == "Indian" or event["Race"] == "navajo"):
+        b=127
+        r = 1
+        g = 1
+        
+    print "r" + str(r) + "  g" + str(g) + "  b" + str(b)
     return strip.color(r,g,b)
 
 
 def getLEDLocation(event):
-    return random.randint(1,160)
+    return random.randint(10,160)
 
-# time in milliseconds.
-COMPOSITION_TIME = 600000
-month_window = COMPOSITION_TIME / 12
 
 with open('InfluenzaCountingTheDeadUpdated.csv') as csvfile:
     reader = csv.DictReader(csvfile, delimiter=",")
@@ -77,19 +89,16 @@ with open('InfluenzaCountingTheDeadUpdated.csv') as csvfile:
 
 #print month
 
-# for JANUARY
-for key, value in month.iteritems():
-    print key
-
-
-deathevents = len(month[1])
-print deathevents
-print month_window
-time_per_death_event = month_window/deathevents
-print "death time"
-print time_per_death_event
-time_per_death_event = .005
-allOff()
+##
+##
+##deathevents = len(month[1])
+##print deathevents #the number of death events
+##print month_window #the amount of time per month
+##time_per_death_event = month_window/deathevents
+##print "death time"
+##print time_per_death_event
+##time_per_death_event = .005
+##allOff()
 
 ### for each death event
 ##for event in month['January']:
@@ -100,18 +109,30 @@ allOff()
 ##    duration = time_per_death_event
 ####    lightUp(color, location, duration)
 ##
-for i in range(1,12): #number of month numbers in the document
+            
+allOff()
+allFill(strip.color(255,0,0), 10)
+allOff()
+
+for i in range(9,12): #number of month numbers in the document
     print i
     themonth = month[str(i)]
+    # how much time to we have for each event in this month?
+    deathevents = len(themonth)
+    time_per_death_event = month_window/deathevents
+
     for event in themonth:
         print event
         color = getLEDColor(event)
         print color
         location = getLEDLocation(event)
         duration = time_per_death_event
-        lightUp(color, location, duration)
+       
+        lightUp(color, location, time_per_death_event)
 
-
+    # at the end of the month, fill with red
+    allFill(strip.color(255,0,0), 10)
+    allOff()
 
 
 
