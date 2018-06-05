@@ -1,0 +1,1 @@
+https://stackoverflow.com/questions/21028227/raspberry-pi-does-not-have-etc-modprobe-d-raspi-blacklist-conf
